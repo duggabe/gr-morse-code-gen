@@ -36,6 +36,7 @@ import signal
 from argparse import ArgumentParser
 from gnuradio.eng_arg import eng_float, intx
 from gnuradio import eng_notation
+from gnuradio.qtgui import Range, RangeWidget
 import epy_block_0
 from gnuradio import qtgui
 
@@ -79,10 +80,14 @@ class MorseGen(gr.top_block, Qt.QWidget):
         self.repeat = repeat = 1200
         self.baud = baud = speed/1.2
         self.samp_rate = samp_rate = baud*repeat
+        self.freq = freq = 800
 
         ##################################################
         # Blocks
         ##################################################
+        self._freq_range = Range(300, 20000, 100, 800, 200)
+        self._freq_win = RangeWidget(self._freq_range, self.set_freq, 'freq', "counter_slider", float)
+        self.top_grid_layout.addWidget(self._freq_win)
         self.rational_resampler_xxx_0 = filter.rational_resampler_fff(
                 interpolation=(int)(48000/samp_rate),
                 decimation=1,
@@ -92,7 +97,7 @@ class MorseGen(gr.top_block, Qt.QWidget):
             4096, #size
             samp_rate, #samp_rate
             "", #name
-            1 #number of inputs
+            2 #number of inputs
         )
         self.qtgui_time_sink_x_0.set_update_time(0.10)
         self.qtgui_time_sink_x_0.set_y_axis(-1, 1)
@@ -122,7 +127,7 @@ class MorseGen(gr.top_block, Qt.QWidget):
             -1, -1, -1, -1, -1]
 
 
-        for i in range(1):
+        for i in range(2):
             if len(labels[i]) == 0:
                 self.qtgui_time_sink_x_0.set_line_label(i, "Data {0}".format(i))
             else:
@@ -140,7 +145,7 @@ class MorseGen(gr.top_block, Qt.QWidget):
         self.blocks_repeat_0 = blocks.repeat(gr.sizeof_char*1, repeat)
         self.blocks_multiply_xx_0 = blocks.multiply_vff(1)
         self.audio_sink_0 = audio.sink(48000, 'hw:CARD=Device,DEV=0', True)
-        self.analog_sig_source_x_0_0 = analog.sig_source_f(samp_rate, analog.GR_COS_WAVE, 800, 0.5, 0, 0)
+        self.analog_sig_source_x_0_0 = analog.sig_source_f(samp_rate, analog.GR_COS_WAVE, freq, 0.5, 0, 0)
 
 
 
@@ -148,6 +153,7 @@ class MorseGen(gr.top_block, Qt.QWidget):
         # Connections
         ##################################################
         self.connect((self.analog_sig_source_x_0_0, 0), (self.blocks_multiply_xx_0, 1))
+        self.connect((self.blocks_multiply_xx_0, 0), (self.qtgui_time_sink_x_0, 1))
         self.connect((self.blocks_multiply_xx_0, 0), (self.rational_resampler_xxx_0, 0))
         self.connect((self.blocks_repeat_0, 0), (self.blocks_uchar_to_float_0, 0))
         self.connect((self.blocks_uchar_to_float_0, 0), (self.blocks_multiply_xx_0, 0))
@@ -189,6 +195,13 @@ class MorseGen(gr.top_block, Qt.QWidget):
         self.samp_rate = samp_rate
         self.analog_sig_source_x_0_0.set_sampling_freq(self.samp_rate)
         self.qtgui_time_sink_x_0.set_samp_rate(self.samp_rate)
+
+    def get_freq(self):
+        return self.freq
+
+    def set_freq(self, freq):
+        self.freq = freq
+        self.analog_sig_source_x_0_0.set_frequency(self.freq)
 
 
 

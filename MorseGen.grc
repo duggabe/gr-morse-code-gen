@@ -44,6 +44,27 @@ blocks:
     coordinate: [297, 15]
     rotation: 0
     state: enabled
+- name: freq
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: ''
+    label: ''
+    min_len: '200'
+    orient: Qt.Horizontal
+    rangeType: float
+    start: '300'
+    step: '100'
+    stop: '20000'
+    value: '800'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [600, 15]
+    rotation: 0
+    state: true
 - name: repeat
   id: variable
   parameters:
@@ -87,7 +108,7 @@ blocks:
     alias: ''
     amp: '0.5'
     comment: ''
-    freq: '800'
+    freq: freq
     maxoutbuf: '0'
     minoutbuf: '0'
     offset: '0'
@@ -99,7 +120,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [452, 488]
+    coordinate: [539, 466]
     rotation: 0
     state: enabled
 - name: audio_sink_0
@@ -116,7 +137,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1169, 504]
+    coordinate: [1265, 345]
     rotation: 0
     state: enabled
 - name: blocks_multiply_xx_0
@@ -134,7 +155,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [810, 500]
+    coordinate: [831, 341]
     rotation: 0
     state: enabled
 - name: blocks_repeat_0
@@ -152,7 +173,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [287, 347]
+    coordinate: [411, 337]
     rotation: 0
     state: enabled
 - name: blocks_uchar_to_float_0
@@ -167,18 +188,19 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [487, 351]
+    coordinate: [617, 341]
     rotation: 0
     state: enabled
 - name: epy_block_0
   id: epy_block
   parameters:
     _source_code: "\"\"\"\nMorse code vector source\n\"\"\"\n\n#  epy_block_0.py\n\
-      #  revised 08/20/2019\n\nimport numpy as np\nfrom gnuradio import gr\n\nMorse\
-      \ = {\n    \"A\": \"1,0,1,1,1\",\n    \"B\": \"1,1,1,0,1,0,1,0,1\",\n    \"\
-      C\": \"1,1,1,0,1,0,1,1,1,0,1\",\n    \"D\": \"1,1,1,0,1,0,1\",\n    \"E\": \"\
-      1\",\n    \"F\": \"1,0,1,0,1,1,1,0,1\",\n    \"G\": \"1,1,1,0,1,1,1,0,1\",\n\
-      \    \"H\": \"1,0,1,0,1,0,1\",\n    \"I\": \"1,0,1\",\n    \"J\": \"1,0,1,1,1,0,1,1,1,0,1,1,1\"\
+      #  revised 09/10/2019\n\nimport numpy as np\nfrom gnuradio import gr\n\nMorse\
+      \ = {\n  # codes from https://www.itu.int/rec/R-REC-M.1677-1-200910-I/en\n \
+      \   \"A\": \"1,0,1,1,1\",\n    \"B\": \"1,1,1,0,1,0,1,0,1\",\n    \"C\": \"\
+      1,1,1,0,1,0,1,1,1,0,1\",\n    \"D\": \"1,1,1,0,1,0,1\",\n    \"E\": \"1\",\n\
+      \    \"F\": \"1,0,1,0,1,1,1,0,1\",\n    \"G\": \"1,1,1,0,1,1,1,0,1\",\n    \"\
+      H\": \"1,0,1,0,1,0,1\",\n    \"I\": \"1,0,1\",\n    \"J\": \"1,0,1,1,1,0,1,1,1,0,1,1,1\"\
       ,\n    \"K\": \"1,1,1,0,1,0,1,1,1\",\n    \"L\": \"1,0,1,1,1,0,1,0,1\",\n  \
       \  \"M\": \"1,1,1,0,1,1,1\",\n    \"N\": \"1,1,1,0,1\",\n    \"O\": \"1,1,1,0,1,1,1,0,1,1,1\"\
       ,\n    \"P\": \"1,0,1,1,1,0,1,1,1,0,1\",\n    \"Q\": \"1,1,1,0,1,1,1,0,1,0,1,1,1\"\
@@ -192,32 +214,43 @@ blocks:
       \    \"6\": \"1,1,1,0,1,0,1,0,1,0,1\",\n    \"7\": \"1,1,1,0,1,1,1,0,1,0,1,0,1\"\
       ,\n    \"8\": \"1,1,1,0,1,1,1,0,1,1,1,0,1,0,1\",\n    \"9\": \"1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1\"\
       ,\n    \"0\": \"1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1\",\n    \".\": \"1,0,1,1,1,0,1,0,1,1,1,0,1,0,1,1,1\"\
-      ,            # period\n    \",\": \"1,1,1,0,1,1,1,0,1,0,1,0,1,1,1,0,1,1,1\"\
-      ,      # comma\n    \"?\": \"1,0,1,0,1,1,1,0,1,1,1,0,1,0,1\",              \
-      \   # question\n    \"'\": \"1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1\",      #\
-      \ apostrophe\n    \"/\": \"1,1,1,0,1,0,1,0,1,1,1,0,1\",                    \
-      \    # slash\n    \":\": \"1,1,1,0,1,1,1,0,1,1,1,0,1,0,1,0,1\",            #\
-      \ colon\n    \"=\": \"1,1,1,0,1,0,1,0,1,0,1,1,1\",                       # equals\n\
-      \    \"-\": \"1,1,1,0,1,0,1,0,1,0,1,0,1,1,1\"                  # dash or minus\n\
-      \      }\n\n\nclass mc_sync_block(gr.sync_block):\n    \"\"\"\n    reads input\
-      \ from sysin\n    generates a vector of Morse code bits\n    \"\"\"\n    def\
-      \ __init__(self):\n        gr.sync_block.__init__(self,\n            name =\
-      \ \"Morse code vector source\",\n            in_sig = None,\n            out_sig\
-      \ = [np.byte]\n        )\n\n    def work(self, input_items, output_items):\n\
-      \        global Morse\n\n        in_text = input (\": \")\n        bit_stream\
-      \ = \"\"\n        for in0 in in_text:\n            # get next char\n       \
-      \     inChar = str (in0)\n            # convert to upper case\n            ch\
-      \ = inChar.upper()\n            # get vector\n            _dots = str (Morse.get(ch))\n\
-      \            # print (ch, _dots)\n            bit_stream += (_dots + \",0,0,0,\"\
-      )    # letter space\n\n        bit_stream += \"0,0,0,0\"    # finish with word\
-      \ space\n        # print (bit_stream)\n\n        # get length of string\n  \
-      \      _len = len(bit_stream)\n        # num of elements = (length+1) / 2\n\
-      \        _num_elem = int((_len+1) / 2)\n\n        # convert and store elements\
-      \ in output array\n        for x in range (_len):\n            y = int(x / 2)\n\
-      \            if (bit_stream[x] == '1'):\n                output_items[0][y]\
-      \ = 1\n            elif (bit_stream[x] == '0'):\n                output_items[0][y]\
-      \ = 0\n            else:\n                continue    # skip commas\n\n    \
-      \    return (_num_elem)\n\n"
+      ,          # period\n    \",\": \"1,1,1,0,1,1,1,0,1,0,1,0,1,1,1,0,1,1,1\", \
+      \     # comma\n    \":\": \"1,1,1,0,1,1,1,0,1,1,1,0,1,0,1,0,1\",          #\
+      \ colon\n    \"?\": \"1,0,1,0,1,1,1,0,1,1,1,0,1,0,1\",              # question\n\
+      \    \"'\": \"1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1\",      # apostrophe\n \
+      \   \"-\": \"1,1,1,0,1,0,1,0,1,0,1,0,1,1,1\",              # dash or minus\n\
+      \    \"/\": \"1,1,1,0,1,0,1,0,1,1,1,0,1\",                  # slash\n    \"\
+      (\": \"1,1,1,0,1,0,1,1,1,0,1,1,1,0,1\",              # left parenthesis\n  \
+      \  \")\": \"1,1,1,0,1,0,1,1,1,0,1,1,1,0,1,0,1,1,1\",      # right parenthesis\n\
+      \    \"\\\"\": \"1,0,1,1,1,0,1,0,1,0,1,1,1,0,1\",             # quote\n    \"\
+      =\": \"1,1,1,0,1,0,1,0,1,0,1,1,1\",                  # equals\n    \"+\": \"\
+      1,0,1,1,1,0,1,0,1,1,1,0,1\",                  # plus\n    \"@\": \"1,0,1,1,1,0,1,1,1,0,1,0,1,1,1,0,1\"\
+      ,          # at sign (@)\n  # these punctuation marks are not included in the\
+      \ ITU recommendation,\n  # but are found in https://en.wikipedia.org/wiki/Morse_code\n\
+      \    \"!\": \"1,1,1,0,1,0,1,1,1,0,1,0,1,1,1,0,1,1,1\",      # exclamation point\n\
+      \    \"&\": \"1,0,1,1,1,0,1,0,1,0,1\",                      # ampersand (also\
+      \ prosign for 'WAIT')\n    \";\": \"1,1,1,0,1,0,1,1,1,0,1,0,1,1,1,0,1\",   \
+      \       # semicolon\n    \"_\": \"1,0,1,0,1,1,1,0,1,1,1,0,1,0,1,1,1\",     \
+      \     # underscore\n    \"$\": \"1,0,1,0,1,0,1,1,1,0,1,0,1,0,1,1,1\"       \
+      \    # dollar sign\n      }\n\nclass mc_sync_block(gr.sync_block):\n    \"\"\
+      \"\n    reads input from sysin\n    generates a vector of Morse code bits\n\
+      \    \"\"\"\n    def __init__(self):\n        gr.sync_block.__init__(self,\n\
+      \            name = \"Morse code vector source\",\n            in_sig = None,\n\
+      \            out_sig = [np.byte]\n        )\n\n    def work(self, input_items,\
+      \ output_items):\n        global Morse\n\n        in_text = input (\": \")\n\
+      \        bit_stream = \"\"\n        for in0 in in_text:\n            # get next\
+      \ char\n            inChar = str (in0)\n            # convert to upper case\n\
+      \            ch = inChar.upper()\n            # get vector\n            _dots\
+      \ = str (Morse.get(ch))\n            # print (ch, _dots)\n            bit_stream\
+      \ += (_dots + \",0,0,0,\")    # letter space\n\n        bit_stream += \"0,0,0,0\"\
+      \    # finish with word space\n        # print (bit_stream)\n\n        # get\
+      \ length of string\n        _len = len(bit_stream)\n        # num of elements\
+      \ = (length+1) / 2\n        _num_elem = int((_len+1) / 2)\n\n        # convert\
+      \ and store elements in output array\n        for x in range (_len):\n     \
+      \       y = int(x / 2)\n            if (bit_stream[x] == '1'):\n           \
+      \     output_items[0][y] = 1\n            elif (bit_stream[x] == '0'):\n   \
+      \             output_items[0][y] = 0\n            else:\n                continue\
+      \    # skip commas\n\n        return (_num_elem)\n\n"
     affinity: ''
     alias: ''
     comment: ''
@@ -230,7 +263,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [30, 351]
+    coordinate: [140, 341]
     rotation: 0
     state: true
 - name: qtgui_time_sink_x_0
@@ -287,7 +320,7 @@ blocks:
     marker8: '-1'
     marker9: '-1'
     name: '""'
-    nconnections: '1'
+    nconnections: '2'
     size: '4096'
     srate: samp_rate
     stemplot: 'False'
@@ -327,7 +360,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [860, 228]
+    coordinate: [996, 209]
     rotation: 0
     state: true
 - name: rational_resampler_xxx_0
@@ -347,12 +380,13 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [960, 488]
+    coordinate: [990, 329]
     rotation: 0
-    state: enabled
+    state: true
 
 connections:
 - [analog_sig_source_x_0_0, '0', blocks_multiply_xx_0, '1']
+- [blocks_multiply_xx_0, '0', qtgui_time_sink_x_0, '1']
 - [blocks_multiply_xx_0, '0', rational_resampler_xxx_0, '0']
 - [blocks_repeat_0, '0', blocks_uchar_to_float_0, '0']
 - [blocks_uchar_to_float_0, '0', blocks_multiply_xx_0, '0']
