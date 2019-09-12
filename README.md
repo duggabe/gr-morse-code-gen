@@ -5,6 +5,19 @@ Generates Morse code from keyboard input. It is based on gnuradio. The audio out
 
 See [What is GNU Radio?](https://wiki.gnuradio.org/index.php/What_is_GNU_Radio%3F) and [Installing GNU Radio](https://wiki.gnuradio.org/index.php/InstallingGR)
 
+Note: These instructions are written for a Linux OS. Similar commands work for Mac and Windows.
+
+1. Open a terminal window.
+2. Change to the home directory.
+```
+cd ~/  
+```
+3. If you don't have 'git', enter ```sudo apt-get git``` depending on you specific Operating System.
+4. Clone the repository:
+```
+git clone https://github.com/duggabe/gr-morse-code-gen.git
+```
+
 ## Setting parameters
 
 There are four variable boxes in the flowgraph: ```speed```, ```baud```, ```repeat```, and ```samp_rate```. ```baud``` and ```samp_rate``` are computed from the ```speed```. ```repeat``` is fixed at 1200.
@@ -33,5 +46,5 @@ gnuradio-companion
 7. A new window titled "Morse Code Generator" will open showing an oscilloscope trace of the keying signal. One "dit" time equals 1 / baud. E.g. 10 baud => 100 ms.
 8. Highlight the terminal screen.
 9. Type a line of text to be sent and press 'Enter'. That line will be sent as Morse code.
-10. Continue with additional text to be sent. Note that corrections can be made to the text before pressing 'Enter'. There is no need to stop execution of the program when switching from transmit to receive mode.
+10. Continue with additional text to be sent. Note that corrections can be made to the line of text before pressing 'Enter'. There is no need to stop execution of the program when switching from transmit to receive mode.
 11. To Terminate the program, enter Control-C followed by 'Enter'.
