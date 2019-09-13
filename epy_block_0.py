@@ -3,7 +3,8 @@ Morse code vector source
 """
 
 #  epy_block_0.py
-#  revised 09/10/2019
+#  revised 09/10/2019 - finish code table
+#  revised 09/11/2019 - test for bad character
 
 import numpy as np
 from gnuradio import gr
@@ -91,7 +92,11 @@ class mc_sync_block(gr.sync_block):
             inChar = str (in0)
             # convert to upper case
             ch = inChar.upper()
-            # get vector
+            # test for character in table
+            if (not(ch in Morse)):
+                # print ("bad char", ch)
+                ch = "?"        # replace bad character with a '?'
+            # build vector
             _dots = str (Morse.get(ch))
             # print (ch, _dots)
             bit_stream += (_dots + ",0,0,0,")    # letter space
