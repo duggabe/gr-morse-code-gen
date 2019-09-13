@@ -88,6 +88,7 @@ class MorseGen(gr.top_block, Qt.QWidget):
         self._freq_range = Range(300, 20000, 100, 800, 200)
         self._freq_win = RangeWidget(self._freq_range, self.set_freq, 'freq', "counter_slider", float)
         self.top_grid_layout.addWidget(self._freq_win)
+        self.single_pole_iir_filter_xx_0 = filter.single_pole_iir_filter_ff(0.25, 1)
         self.rational_resampler_xxx_0 = filter.rational_resampler_fff(
                 interpolation=(int)(48000/samp_rate),
                 decimation=1,
@@ -100,16 +101,16 @@ class MorseGen(gr.top_block, Qt.QWidget):
             2 #number of inputs
         )
         self.qtgui_time_sink_x_0.set_update_time(0.10)
-        self.qtgui_time_sink_x_0.set_y_axis(-1, 1)
+        self.qtgui_time_sink_x_0.set_y_axis(-1, 1.5)
 
         self.qtgui_time_sink_x_0.set_y_label('Amplitude', "")
 
         self.qtgui_time_sink_x_0.enable_tags(True)
-        self.qtgui_time_sink_x_0.set_trigger_mode(qtgui.TRIG_MODE_AUTO, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "")
+        self.qtgui_time_sink_x_0.set_trigger_mode(qtgui.TRIG_MODE_AUTO, qtgui.TRIG_SLOPE_POS, 0.5, 0, 0, "")
         self.qtgui_time_sink_x_0.enable_autoscale(False)
         self.qtgui_time_sink_x_0.enable_grid(False)
         self.qtgui_time_sink_x_0.enable_axis_labels(True)
-        self.qtgui_time_sink_x_0.enable_control_panel(False)
+        self.qtgui_time_sink_x_0.enable_control_panel(True)
         self.qtgui_time_sink_x_0.enable_stem_plot(False)
 
 
@@ -156,10 +157,11 @@ class MorseGen(gr.top_block, Qt.QWidget):
         self.connect((self.blocks_multiply_xx_0, 0), (self.qtgui_time_sink_x_0, 1))
         self.connect((self.blocks_multiply_xx_0, 0), (self.rational_resampler_xxx_0, 0))
         self.connect((self.blocks_repeat_0, 0), (self.blocks_uchar_to_float_0, 0))
-        self.connect((self.blocks_uchar_to_float_0, 0), (self.blocks_multiply_xx_0, 0))
-        self.connect((self.blocks_uchar_to_float_0, 0), (self.qtgui_time_sink_x_0, 0))
+        self.connect((self.blocks_uchar_to_float_0, 0), (self.single_pole_iir_filter_xx_0, 0))
         self.connect((self.epy_block_0, 0), (self.blocks_repeat_0, 0))
         self.connect((self.rational_resampler_xxx_0, 0), (self.audio_sink_0, 0))
+        self.connect((self.single_pole_iir_filter_xx_0, 0), (self.blocks_multiply_xx_0, 0))
+        self.connect((self.single_pole_iir_filter_xx_0, 0), (self.qtgui_time_sink_x_0, 0))
 
     def closeEvent(self, event):
         self.settings = Qt.QSettings("GNU Radio", "MorseGen")
