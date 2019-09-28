@@ -105,7 +105,7 @@ class mc_sync_block(gr.sync_block):
                 # convert to upper case
                 ch = inChar.upper()
                 # test for character in table
-                if (not(ch in self.Morse)):
+                if (not(ch in Morse)):
                 # print ("bad char", ch)
                     ch = "?"        # replace bad character with a '?'
                 # build vector
