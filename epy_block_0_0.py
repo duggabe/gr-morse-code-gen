@@ -5,7 +5,7 @@ Morse code vector source
 #  epy_block_0.py
 #  revised 09/10/2019 - finish code table
 #  revised 09/11/2019 - test for bad character
-#  revised 09/27/2019 - get input from a Message Edit block (code from Volker Schoer dl1ksv)
+#  revised 09/27/2019 - get input from a Message Edit block (code from Volker Schroer dl1ksv)
 
 import numpy as np
 from gnuradio import gr

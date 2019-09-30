@@ -33,6 +33,8 @@ There are four variable boxes in the flowgraph: ```speed```, ```baud```, ```repe
 
 ## Operation
 
+### Using gnuradio-companion
+
 1. Open a terminal window.
 2. Go to the gr-morse-code-gen folder.
 ```
@@ -50,3 +52,24 @@ gnuradio-companion
 9. Type a line of text to be sent and press 'Enter'. That line will be sent as Morse code.
 10. Continue with additional text to be sent. Note that corrections can be made to the line of text before pressing 'Enter'. There is no need to stop execution of the program when switching from transmit to receive mode.
 11. To Terminate the program, click the 'x' in the corner of the title line.
+
+### Command line operation
+
+If you don't need to change the speed, you can start the program as follows:
+
+1. Open a terminal window.
+2. Go to the gr-morse-code-gen folder.
+```
+cd ~/gr-morse-code-gen
+```
+3. Enter ```python3 MorseGen.py```
+4. A new window titled "Morse Code Generator" will open showing a tuning knob and a text input line.
+5. Highlight the text input line.
+6. Type a line of text to be sent and press 'Enter'. That line will be sent as Morse code.
+7. Continue with additional text to be sent. Note that corrections can be made to the line of text before pressing 'Enter'. There is no need to stop execution of the program when switching from transmit to receive mode.
+8. To Terminate the program, click the 'x' in the corner of the title line.
+
+
+## Credits
+
+Thanks to Volker Schroer (dl1ksv) for the coding of the Message Edit block as the input device.

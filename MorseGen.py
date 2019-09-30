@@ -94,7 +94,7 @@ class MorseGen(gr.top_block, Qt.QWidget):
                 decimation=1,
                 taps=None,
                 fractional_bw=None)
-        self.qtgui_edit_box_msg_0 = qtgui.edit_box_msg(qtgui.STRING, "", '', False, False, "text")
+        self.qtgui_edit_box_msg_0 = qtgui.edit_box_msg(qtgui.STRING, "", 'Input', False, False, "text")
         self._qtgui_edit_box_msg_0_win = sip.wrapinstance(self.qtgui_edit_box_msg_0.pyqwidget(), Qt.QWidget)
         self.top_grid_layout.addWidget(self._qtgui_edit_box_msg_0_win)
         self.epy_block_0_0 = epy_block_0_0.mc_sync_block()

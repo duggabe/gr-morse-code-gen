@@ -197,7 +197,7 @@ blocks:
     _source_code: "\"\"\"\nMorse code vector source\n\"\"\"\n\n#  epy_block_0.py\n\
       #  revised 09/10/2019 - finish code table\n#  revised 09/11/2019 - test for\
       \ bad character\n#  revised 09/27/2019 - get input from a Message Edit block\
-      \ (code from Volker Schoer dl1ksv)\n\nimport numpy as np\nfrom gnuradio import\
+      \ (code from Volker Schroer dl1ksv)\n\nimport numpy as np\nfrom gnuradio import\
       \ gr\n\nimport pmt\n\ntextboxValue = \"\"\n\nMorse = {\n  # codes from https://www.itu.int/rec/R-REC-M.1677-1-200910-I/en\n\
       \    \"A\": \"1,0,1,1,1\",\n    \"B\": \"1,1,1,0,1,0,1,0,1\",\n    \"C\": \"\
       1,1,1,0,1,0,1,1,1,0,1\",\n    \"D\": \"1,1,1,0,1,0,1\",\n    \"E\": \"1\",\n\
@@ -289,7 +289,7 @@ blocks:
     is_pair: 'False'
     is_static: 'False'
     key: '"text"'
-    label: ''
+    label: Input
     maxoutbuf: '0'
     minoutbuf: '0'
     type: string
