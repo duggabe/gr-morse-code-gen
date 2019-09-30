@@ -44,7 +44,7 @@ cd ~/gr-morse-code-gen
 ```
 gnuradio-companion
 ```
-4. Open MorseCode.grc from the file menu.
+4. Open MorseGen.grc from the file menu.
 5. Set the ```speed``` to the desired rate.
 6. Click 'Run' and 'Execute' or press F6.
 7. A new window titled "Morse Code Generator" will open showing a tuning knob and a text input line.
