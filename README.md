@@ -9,18 +9,21 @@ Note: These instructions are written for a Linux OS. Similar commands work for M
 
 1. Open a terminal window.
 2. Change to the home directory.
-```
-cd ~/  
-```
-3. If you don't have 'git', enter<br> ```sudo apt install git``` depending on you specific Operating System.
+    
+    cd ~/  
+
+3. If you don't have 'git', enter
+    
+    sudo apt install git  
+
 4. Clone the repository:
-```
-git clone https://github.com/duggabe/gr-morse-code-gen.git
-```
+    
+    git clone https://github.com/duggabe/gr-morse-code-gen.git
 
 ## Setting parameters
 
-There are four variable boxes in the flowgraph: ```speed```, ```baud```, ```repeat```, and ```samp_rate```.  ```repeat``` is fixed at 1200.<br> ```baud``` and ```samp_rate``` are computed from the ```speed```.
+There are four variable boxes in the flowgraph: ```speed```, ```baud```, ```repeat```, and ```samp_rate```.<br>
+```repeat``` is fixed at 1200.<br> ```baud``` and ```samp_rate``` are computed from the ```speed```.
 
 * The ```speed``` variable in words per minute can be set to any of the following:
     * 2, 3, 4, 6, 8, 12, 16, or 24 (all are factors of 48). 
