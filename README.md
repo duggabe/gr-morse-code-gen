@@ -1,6 +1,8 @@
 # gr-morse-code-gen
 Generates Morse code from keyboard input. It is based on gnuradio. The audio output can be fed to a Single Sideband (SSB) transmitter to generate a CW signal.
 
+![flowgraph](./MorseGen_fg.png "Gnu Radio flowgraph")
+
 ## Installation
 
 See [What is GNU Radio?](https://wiki.gnuradio.org/index.php/What_is_GNU_Radio%3F) and [Installing GNU Radio](https://wiki.gnuradio.org/index.php/InstallingGR)
@@ -9,16 +11,17 @@ Note: These instructions are written for a Linux OS. Similar commands work for M
 
 1. Open a terminal window.
 2. Change to the home directory.
-    
-    cd ~/  
-
+```
+cd ~/  
+```
 3. If you don't have 'git', enter
-    
-    sudo apt install git  
-
+```
+sudo apt install git  
+```
 4. Clone the repository:
-    
-    git clone https://github.com/duggabe/gr-morse-code-gen.git
+```
+git clone https://github.com/duggabe/gr-morse-code-gen.git
+```
 
 ## Setting parameters
 
