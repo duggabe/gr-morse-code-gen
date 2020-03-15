@@ -1,5 +1,7 @@
 # gr-morse-code-gen
-Generates Morse code from keyboard input. It is based on gnuradio. The audio output can be fed to a Single Sideband (SSB) transmitter to generate a CW signal.
+Generates Morse code from keyboard input. It is based on GNU Radio version 3.8.0.0. The audio output can be fed to a Single Sideband (SSB) transmitter to generate a CW signal.
+
+If you have GNU Radio version 3.7, you can recreate the flowgraph and copy the `epy_block_0_0.py` file into an Embedded Python block to create the "Morse code vector source" block.
 
 ![flowgraph](./MorseGen_fg.png "Gnu Radio flowgraph")
 
@@ -25,7 +27,7 @@ git clone https://github.com/duggabe/gr-morse-code-gen.git
 
 ## Setting parameters
 
-There are four variable boxes in the flowgraph: ```speed```, ```baud```, ```repeat```, and ```samp_rate```.<br>
+There are four variable boxes in the flowgraph:<br> ```speed```, ```baud```, ```repeat```, and ```samp_rate```.<br>
 ```repeat``` is fixed at 1200.<br> ```baud``` and ```samp_rate``` are computed from the ```speed```.
 
 * The ```speed``` variable in words per minute can be set to any of the following:
@@ -33,7 +35,7 @@ There are four variable boxes in the flowgraph: ```speed```, ```baud```, ```repe
 
 * The Signal Source (sidetone) audio output frequency can be set between 300 and 20,000 hz.
 
-* The Audio Sink Device Name is dependent on the Operating System and the desired output port. If in doubt, try 'default' or 'hw:0'.
+* The Audio Sink Device Name is dependent on the Operating System and the desired output port. See [Audio Sink](https://wiki.gnuradio.org/index.php/Audio_Sink) for additional information.
 
 * __NOTE__: All of the program timing is based on the audio sample rate being set to 48 kHz.
 
