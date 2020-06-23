@@ -22,9 +22,6 @@ if __name__ == '__main__':
         except:
             print("Warning: failed to XInitThreads()")
 
-from PyQt5 import Qt
-from gnuradio import qtgui
-import sip
 from gnuradio import analog
 from gnuradio import audio
 from gnuradio import blocks
@@ -33,15 +30,17 @@ from gnuradio.filter import firdes
 from gnuradio import gr
 import sys
 import signal
+from PyQt5 import Qt
 from argparse import ArgumentParser
 from gnuradio.eng_arg import eng_float, intx
 from gnuradio import eng_notation
+from gnuradio import zeromq
 from gnuradio.qtgui import Range, RangeWidget
 import epy_block_0_0
 
 from gnuradio import qtgui
 
-class MorseGen(gr.top_block, Qt.QWidget):
+class MorseGen_alt(gr.top_block, Qt.QWidget):
 
     def __init__(self):
         gr.top_block.__init__(self, "Morse Code Generator")
@@ -64,7 +63,7 @@ class MorseGen(gr.top_block, Qt.QWidget):
         self.top_grid_layout = Qt.QGridLayout()
         self.top_layout.addLayout(self.top_grid_layout)
 
-        self.settings = Qt.QSettings("GNU Radio", "MorseGen")
+        self.settings = Qt.QSettings("GNU Radio", "MorseGen_alt")
 
         try:
             if StrictVersion(Qt.qVersion()) < StrictVersion("5.0.0"):
@@ -93,14 +92,12 @@ class MorseGen(gr.top_block, Qt.QWidget):
         self._freq_range = Range(300, 2000, 100, 800, 200)
         self._freq_win = RangeWidget(self._freq_range, self.set_freq, 'freq', "counter_slider", float)
         self.top_grid_layout.addWidget(self._freq_win)
+        self.zeromq_pull_msg_source_0 = zeromq.pull_msg_source('tcp://127.0.0.1:50251', 100)
         self.rational_resampler_xxx_0 = filter.rational_resampler_fff(
                 interpolation=(int)(48000/samp_rate),
                 decimation=1,
                 taps=None,
                 fractional_bw=None)
-        self.qtgui_edit_box_msg_0 = qtgui.edit_box_msg(qtgui.STRING, "", 'Input', False, True, "text")
-        self._qtgui_edit_box_msg_0_win = sip.wrapinstance(self.qtgui_edit_box_msg_0.pyqwidget(), Qt.QWidget)
-        self.top_grid_layout.addWidget(self._qtgui_edit_box_msg_0_win)
         self.low_pass_filter_0 = filter.fir_filter_fff(
             1,
             firdes.low_pass(
@@ -123,8 +120,7 @@ class MorseGen(gr.top_block, Qt.QWidget):
         ##################################################
         # Connections
         ##################################################
-        self.msg_connect((self.epy_block_0_0, 'clear_input'), (self.qtgui_edit_box_msg_0, 'val'))
-        self.msg_connect((self.qtgui_edit_box_msg_0, 'msg'), (self.epy_block_0_0, 'msg_in'))
+        self.msg_connect((self.zeromq_pull_msg_source_0, 'out'), (self.epy_block_0_0, 'msg_in'))
         self.connect((self.analog_sig_source_x_0_0, 0), (self.blocks_multiply_const_vxx_0_0, 0))
         self.connect((self.blocks_multiply_const_vxx_0_0, 0), (self.blocks_multiply_xx_0, 1))
         self.connect((self.blocks_multiply_xx_0, 0), (self.rational_resampler_xxx_0, 0))
@@ -136,7 +132,7 @@ class MorseGen(gr.top_block, Qt.QWidget):
 
 
     def closeEvent(self, event):
-        self.settings = Qt.QSettings("GNU Radio", "MorseGen")
+        self.settings = Qt.QSettings("GNU Radio", "MorseGen_alt")
         self.settings.setValue("geometry", self.saveGeometry())
         event.accept()
 
@@ -188,7 +184,7 @@ class MorseGen(gr.top_block, Qt.QWidget):
 
 
 
-def main(top_block_cls=MorseGen, options=None):
+def main(top_block_cls=MorseGen_alt, options=None):
 
     if StrictVersion("4.5.0") <= StrictVersion(Qt.qVersion()) < StrictVersion("5.0.0"):
         style = gr.prefs().get_string('qtgui', 'style', 'raster')

@@ -1,5 +1,5 @@
 # gr-morse-code-gen
-Generates Morse code from keyboard input. It is based on GNU Radio version 3.8.0.0. The audio output can be fed to a Single Sideband (SSB) transmitter to generate a CW signal.
+Generates Morse code from keyboard input. It is based on GNU Radio version 3.8.1.0. The audio output can be fed to a Single Sideband (SSB) transmitter to generate a CW signal.
 
 If you have GNU Radio version 3.7, you can recreate the flowgraph and copy the `epy_block_0_0.py` file into an Embedded Python block to create the "Morse code vector source" block.
 
@@ -55,7 +55,7 @@ gnuradio-companion
 4. Open MorseGen.grc from the file menu.
 5. Set the ```speed``` to the desired rate.
 6. Click 'Run' and 'Execute' or press F6.
-7. A new window titled "Morse Code Generator" will open showing a tuning knob and a text input line.
+7. A new window titled "Morse Code Generator" will open showing a frequency slider, a volume control, and a text input line.
 8. Highlight the text input line.
 9. Type a line of text to be sent and press 'Enter'. That line will be sent as Morse code.
 10. Continue with additional text to be sent. Note that corrections can be made to the line of text before pressing 'Enter'. There is no need to stop execution of the program when switching from transmit to receive mode.
@@ -63,7 +63,7 @@ gnuradio-companion
 
 ### Command line operation
 
-If you don't need to change the speed, you can start the program as follows:
+If you don't need to change the speed (the original speed is 12 wpm), you can start the program as follows:
 
 1. Open a terminal window.
 2. Go to the gr-morse-code-gen folder.
@@ -71,13 +71,25 @@ If you don't need to change the speed, you can start the program as follows:
 cd ~/gr-morse-code-gen
 ```
 3. Enter ```python3 MorseGen.py```
-4. A new window titled "Morse Code Generator" will open showing a tuning knob and a text input line.
+4. A new window titled "Morse Code Generator" will open showing a frequency slider, a volume control, and a text input line.
 5. Highlight the text input line.
 6. Type a line of text to be sent and press 'Enter'. That line will be sent as Morse code.
 7. Continue with additional text to be sent. Note that corrections can be made to the line of text before pressing 'Enter'. There is no need to stop execution of the program when switching from transmit to receive mode.
 8. To Terminate the program, click the 'x' in the corner of the title line.
 
+### Alternate input method
+
+An alternate input method is provided by using ```MorseGen_alt.grc``` and ```MorseGen_alt.py``` in the instructions above. It uses a ZMQ message socket instead of the Message Edit Box.
+
+![flowgraph](./MorseGen_alt_fg.png "Gnu Radio flowgraph")
+
+To use this method, do the following. Note that you are using two separate terminal screens.
+
+1. Go to [gr-webserver](https://github.com/duggabe/gr-webserver) and follow the instructions to install it using a separate terminal screen.
+2. Start MorseGen_alt
+3. Start the gr-webserver. Whatever you type not only will be sent as Morse Code, but will be displayed on the screen. The latest 20 lines will be displayed.
 
 ## Credits
 
 Thanks to Volker Schroer (dl1ksv) for the coding of the Message Edit block as the input device.
+

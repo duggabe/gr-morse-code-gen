@@ -10,7 +10,7 @@ options:
     gen_linking: dynamic
     generate_options: qt_gui
     hier_block_src_path: '.:'
-    id: MorseGen
+    id: MorseGen_alt
     max_nouts: '0'
     output_language: python
     placement: (0,0)
@@ -342,28 +342,6 @@ blocks:
     coordinate: [376, 220.0]
     rotation: 0
     state: true
-- name: qtgui_edit_box_msg_0
-  id: qtgui_edit_box_msg
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    gui_hint: ''
-    is_pair: 'False'
-    is_static: 'True'
-    key: '"text"'
-    label: Input
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    type: string
-    value: '""'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [96, 228.0]
-    rotation: 180
-    state: true
 - name: qtgui_time_sink_x_0
   id: qtgui_time_sink_x
   parameters:
@@ -481,6 +459,23 @@ blocks:
     coordinate: [704, 260.0]
     rotation: 0
     state: true
+- name: zeromq_pull_msg_source_0
+  id: zeromq_pull_msg_source
+  parameters:
+    address: tcp://127.0.0.1:50251
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    timeout: '100'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [96, 244.0]
+    rotation: 180
+    state: true
 
 connections:
 - [analog_sig_source_x_0_0, '0', blocks_multiply_const_vxx_0_0, '0']
@@ -490,11 +485,10 @@ connections:
 - [blocks_repeat_0, '0', blocks_uchar_to_float_0, '0']
 - [blocks_uchar_to_float_0, '0', low_pass_filter_0, '0']
 - [epy_block_0_0, '0', blocks_repeat_0, '0']
-- [epy_block_0_0, clear_input, qtgui_edit_box_msg_0, val]
 - [low_pass_filter_0, '0', blocks_multiply_xx_0, '0']
 - [low_pass_filter_0, '0', qtgui_time_sink_x_0, '0']
-- [qtgui_edit_box_msg_0, msg, epy_block_0_0, msg_in]
 - [rational_resampler_xxx_0, '0', audio_sink_0, '0']
+- [zeromq_pull_msg_source_0, out, epy_block_0_0, msg_in]
 
 metadata:
   file_format: 1
