@@ -1,26 +1,35 @@
 # gr-morse-code-gen
-Generates Morse code from keyboard input. It is based on GNU Radio version 3.8.1.0. The audio output can be fed to a Single Sideband (SSB) transmitter to generate a CW signal.
+Generates Morse code from keyboard input. It is based on GNU Radio version 3.8.1.0. The audio output can be fed to a Single Sideband (SSB) transmitter to generate a CW signal. An alternative presented later can key an SDR hardware device directly. These flowgraphs have been tested on GNU Radio version 3.9.0.0 as well.
 
 If you have GNU Radio version 3.7, you can recreate the flowgraph and copy the `epy_block_0_0.py` file into an Embedded Python block to create the "Morse code vector source" block.
 
 ![flowgraph](./MorseGen_fg.png "Gnu Radio flowgraph")
 
+## Table of Contents
+
+[Installation](## Installation)  
+[Setting parameters](## Setting parameters)  
+[Operation](## Operation)  
+[Alternate input method](## Alternate input method)  
+[Transmit with SDR Hardware](## Transmit with SDR Hardware)
+
+
 ## Installation
 
-See [What is GNU Radio?](https://wiki.gnuradio.org/index.php/What_is_GNU_Radio%3F) and [Installing GNU Radio](https://wiki.gnuradio.org/index.php/InstallingGR)
+See [What is GNU Radio?](https://wiki.gnuradio.org/index.php/What_is_GNU_Radio%3F) and [Installing GNU Radio](https://wiki.gnuradio.org/index.php/InstallingGR) for background information.
 
 Note: These instructions are written for a Linux OS. Similar commands work for Mac and Windows.
 
 1. Open a terminal window.
-2. Change to the home directory.
+2. Change to the home directory.  
 ```
 cd ~/  
 ```
-3. If you don't have 'git', enter
+3. If you don't have 'git', enter  
 ```
 sudo apt install git  
 ```
-4. Clone the repository:
+4. Clone the repository:  
 ```
 git clone https://github.com/duggabe/gr-morse-code-gen.git
 ```
@@ -44,11 +53,11 @@ There are four variable boxes in the flowgraph:<br> ```speed```, ```baud```, ```
 ### Using gnuradio-companion
 
 1. Open a terminal window.
-2. Go to the gr-morse-code-gen folder.
+2. Go to the gr-morse-code-gen folder.  
 ```
 cd ~/gr-morse-code-gen
 ```
-3. Execute Gnu Radio Companion.
+3. Execute Gnu Radio Companion.  
 ```
 gnuradio-companion
 ```
@@ -63,10 +72,10 @@ gnuradio-companion
 
 ### Command line operation
 
-If you don't need to change the speed (the original speed is 12 wpm), you can start the program as follows:
+Each time you run the program from gnuradio-companion, a new version of the MorseGen.py file is created. So if you don't need to change the speed from what you used last, you can start the program as follows:
 
 1. Open a terminal window.
-2. Go to the gr-morse-code-gen folder.
+2. Go to the gr-morse-code-gen folder.  
 ```
 cd ~/gr-morse-code-gen
 ```
@@ -77,7 +86,7 @@ cd ~/gr-morse-code-gen
 7. Continue with additional text to be sent. Note that corrections can be made to the line of text before pressing 'Enter'. There is no need to stop execution of the program when switching from transmit to receive mode.
 8. To Terminate the program, click the 'x' in the corner of the title line.
 
-### Alternate input method
+## Alternate input method
 
 An alternate input method is provided by using ```MorseGen_alt.grc``` and ```MorseGen_alt.py``` in the instructions above. It uses a ZMQ message socket instead of the Message Edit Box.
 
@@ -87,9 +96,18 @@ To use this method, do the following. Note that you are using two separate termi
 
 1. Go to [gr-webserver](https://github.com/duggabe/gr-webserver) and follow the instructions to install it using a separate terminal screen.
 2. Start MorseGen_alt
-3. Start the gr-webserver. Whatever you type not only will be sent as Morse Code, but will be displayed on the screen. The latest 20 lines will be displayed.
+3. Start the gr-webserver. Whatever you type not only will be sent as Morse Code, but will be displayed on the screen. The most recent 20 lines will be displayed.
+
+## Transmit with SDR Hardware
+
+The flowgraph below produces Morse code which keys an SDR hardware device directly.
+
+![flowgraph](./MorseGen_xmt_fg.png "Gnu Radio flowgraph")
+
+The Alternate input method can be applied to this flowgraph as well as using a USRP or other SDR hardware device which can transmit.
+
 
 ## Credits
 
-Thanks to Volker Schroer (dl1ksv) for the coding of the Message Edit block as the input device.
+Thanks to Volker Schroer (dl1ksv) for the coding to use the Message Edit block as the input device.
 
