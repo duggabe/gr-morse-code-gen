@@ -10,10 +10,11 @@ If you have GNU Radio version 3.7, you can recreate the flowgraph and copy the `
 [Installation](#install)  
 [Setting parameters](#params)  
 [Operation](#ops)  
-[Alternate input method](#alt)  
+[Alternate input method](#alternate)  
 [Transmit with SDR Hardware](#transmit)
 
 <a name="install"/>
+
 ## Installation
 
 See [What is GNU Radio?](https://wiki.gnuradio.org/index.php/What_is_GNU_Radio%3F) and [Installing GNU Radio](https://wiki.gnuradio.org/index.php/InstallingGR) for background information.
@@ -35,6 +36,7 @@ git clone https://github.com/duggabe/gr-morse-code-gen.git
 ```
 
 <a name="params"/>
+
 ## Setting parameters
 
 There are four variable boxes in the flowgraph:<br> ```speed```, ```baud```, ```repeat```, and ```samp_rate```.<br>
@@ -50,6 +52,7 @@ There are four variable boxes in the flowgraph:<br> ```speed```, ```baud```, ```
 * __NOTE__: All of the program timing is based on the audio sample rate being set to 48 kHz.
 
 <a name="ops"/>
+
 ## Operation
 
 ### Using gnuradio-companion
@@ -88,7 +91,8 @@ cd ~/gr-morse-code-gen
 7. Continue with additional text to be sent. Note that corrections can be made to the line of text before pressing 'Enter'. There is no need to stop execution of the program when switching from transmit to receive mode.
 8. To Terminate the program, click the 'x' in the corner of the title line.
 
-<a name="alt"/>
+<a name="alternate"/>
+
 ## Alternate input method
 
 An alternate input method is provided by using ```MorseGen_alt.grc``` and ```MorseGen_alt.py``` in the instructions above. It uses a ZMQ message socket instead of the Message Edit Box.
@@ -102,6 +106,7 @@ To use this method, do the following. Note that you are using two separate termi
 3. Start the gr-webserver. Whatever you type not only will be sent as Morse Code, but will be displayed on the screen. The most recent 20 lines will be displayed.
 
 <a name="transmit"/>
+
 ## Transmit with SDR Hardware
 
 The flowgraph below produces Morse code which keys an SDR hardware device directly.
