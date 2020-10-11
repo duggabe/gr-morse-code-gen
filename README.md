@@ -1,7 +1,19 @@
 # gr-morse-code-gen
-Generates Morse code from keyboard input. It is based on GNU Radio version 3.8.1.0. The audio output can be fed to a Single Sideband (SSB) transmitter to generate a CW signal. An alternative presented later can key an SDR hardware device directly. These flowgraphs have been tested on GNU Radio version 3.9.0.0 as well.
+This program generates Morse code from keyboard input. The audio output can be fed to a Single Sideband (SSB) transmitter to generate a CW signal. An alternative presented later can key an SDR hardware device directly.
+
+These flowgraphs were developed with GNU Radio version 3.8.1.0, and have been tested on version 3.9.0.0 as well.
 
 If you have GNU Radio version 3.7, you can recreate the flowgraph and copy the `epy_block_0_0.py` file into an Embedded Python block to create the "Morse code vector source" block.
+
+## Versions
+
+* v1.0.0.0
+  * The initial release had a simple low-pass filter and used a speed setting method which limited it to factors of 48.
+* Master (current version)
+  * waveform shaping is done with a Raised Cosine Filter
+  * speed can be set to anything from 1 to 48 wpm.
+
+---
 
 ![flowgraph](./MorseGen_fg.png "Gnu Radio flowgraph")
 
@@ -34,22 +46,26 @@ sudo apt install git
 ```
 git clone https://github.com/duggabe/gr-morse-code-gen.git
 ```
+5. **If** you want to use version 1, enter  
+```
+git checkout v1.0.0.0
+```
 
 <a name="params"/>
 
 ## Setting parameters
 
-There are four variable boxes in the flowgraph:<br> ```speed```, ```baud```, ```repeat```, and ```samp_rate```.<br>
-```repeat``` is fixed at 1200.<br> ```baud``` and ```samp_rate``` are computed from the ```speed```.
+There are four variable boxes in the flowgraph:  
 
-* The ```speed``` variable in words per minute can be set to any of the following:
-    * 2, 3, 4, 6, 8, 12, 16, or 24 (all are factors of 48). 
+```samp_rate```, ```speed```, ```repeat```, and ```symbol_rate```.
 
-* The Signal Source (sidetone) audio output frequency can be set between 300 and 20,000 hz.
+* The ```speed``` variable in words per minute can be set to integer from 1 to 48 wpm. 
 
-* The Audio Sink Device Name is dependent on the Operating System and the desired output port. See [Audio Sink](https://wiki.gnuradio.org/index.php/Audio_Sink) for additional information.
+* ```repeat``` is computed from the ```speed```.
 
-* __NOTE__: All of the program timing is based on the audio sample rate being set to 48 kHz.
+* The ```symbol_rate``` determines the keying pulse shape. A value of 300 gives good rise and fall times.
+
+**Note:** The Audio Sink Device Name is dependent on the Operating System and the desired output port. See [Audio Sink](https://wiki.gnuradio.org/index.php/Audio_Sink) for additional information.
 
 <a name="ops"/>
 
@@ -101,8 +117,8 @@ An alternate input method is provided by using ```MorseGen_alt.grc``` and ```Mor
 
 To use this method, do the following. Note that you are using two separate terminal screens.
 
-1. Go to [gr-webserver](https://github.com/duggabe/gr-webserver) and follow the instructions to install it using a separate terminal screen.
-2. Start MorseGen_alt
+1. Start MorseGen_alt.
+2. Go to [gr-webserver](https://github.com/duggabe/gr-webserver) and follow the instructions to install it **using a separate terminal screen**.
 3. Start the gr-webserver. Whatever you type not only will be sent as Morse Code, but will be displayed on the screen. The most recent 20 lines will be displayed.
 
 <a name="transmit"/>
@@ -113,10 +129,11 @@ The flowgraph below produces Morse code which keys an SDR hardware device direct
 
 ![flowgraph](./MorseGen_xmt_fg.png "Gnu Radio flowgraph")
 
-The Alternate input method can be applied to this flowgraph as well as using a USRP or other SDR hardware device which can transmit.
+Other SDR hardware devices can be used, such as an ADALM-Pluto.
 
 
 ## Credits
 
+Thanks to Ron Economos (w6rz) for the revised shaping filters and speed setting.  
 Thanks to Volker Schroer (dl1ksv) for the coding to use the Message Edit block as the input device.
 
