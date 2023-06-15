@@ -118,7 +118,7 @@ An alternate input method is provided by using ```MorseGen_alt.grc``` and ```Mor
 To use this method, do the following. Note that you are using two separate terminal screens.
 
 1. Start MorseGen_alt.
-2. Go to [gr-webserver](https://github.com/duggabe/gr-webserver) and follow the instructions to install it **using a separate terminal screen**.
+2. Go to [gr-webserver](https://github.com/duggabe/gr-webserver) and follow the instructions to install it **using a separate terminal screen**. **Note:** Version v1.0.16.0 is needed to work with this program.
 3. Start the gr-webserver. Whatever you type not only will be sent as Morse Code, but will be displayed on the screen. The most recent 20 lines will be displayed.
 
 <a name="transmit"/>

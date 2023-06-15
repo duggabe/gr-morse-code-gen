@@ -23,6 +23,7 @@ options:
     sizing_mode: fixed
     thread_safe_setters: ''
     title: Morse Code Generator
+    window_size: (1000,1000)
   states:
     bus_sink: false
     bus_source: false
@@ -50,7 +51,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [440, 12.0]
+    coordinate: [448, 12.0]
     rotation: 0
     state: true
 - name: repeat
@@ -62,7 +63,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [352, 12.0]
+    coordinate: [360, 12.0]
     rotation: 0
     state: true
 - name: samp_rate
@@ -86,7 +87,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [280, 12.0]
+    coordinate: [288, 12.0]
     rotation: 0
     state: true
 - name: symbol_rate
@@ -119,7 +120,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [560, 12.0]
+    coordinate: [568, 12.0]
     rotation: 0
     state: enabled
 - name: analog_sig_source_x_0_0
@@ -135,6 +136,7 @@ blocks:
     offset: '0'
     phase: '0'
     samp_rate: samp_rate
+    showports: 'False'
     type: float
     waveform: analog.GR_COS_WAVE
   states:
@@ -522,3 +524,4 @@ connections:
 
 metadata:
   file_format: 1
+  grc_version: 3.10.6.0
